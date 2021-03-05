@@ -1,0 +1,53 @@
+definitions:
+  tb.Response:
+    properties:
+      data:
+        type: object
+      response_code:
+        type: integer
+      verbose_msg:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /ip/query:
+    get:
+      consumes:
+      - application/json
+      description: 获取IP相关地理位置、ASN信息，综合判定威胁类型如:远控（C2）、傀儡机（Zombie）、失陷主机（Compromised）、扫描（Scanner）、钓鱼（Phishing）等，相关攻击团伙或安全事件标签，原始情报，相关样本信息等。
+      operationId: ip-query
+      parameters:
+      - description: resource string
+        in: query
+        name: resource
+        type: string
+      - description: exclude string
+        in: query
+        name: exclude
+        type: string
+      - description: lang string
+        in: query
+        name: lang
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/tb.Response'
+        "400":
+          description: error
+          schema:
+            type: string
+        "404":
+          description: error
+          schema:
+            type: string
+        "500":
+          description: error
+          schema:
+            type: string
+      summary: 可针对业务日志，以及从防火墙、WAF等安防设备中获取的外部IP，进行分析。
+swagger: "2.0"
